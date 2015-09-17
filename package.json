@@ -1,0 +1,33 @@
+{
+  "name": "lighter-stringify",
+  "version": "0.0.1",
+  "description": "A lightweight JavaScript circular-safe JSON stringifier.",
+  "dependencies": {},
+  "devDependencies": {
+    "exam": ">=0.3.5"
+  },
+  "keywords": [
+    "lighter",
+    "fast",
+    "lightweight",
+    "minimal"
+  ],
+  "main": "lighter-stringify.js",
+  "engines": {
+    "node": ">=0.2.6"
+  },
+  "scripts": {
+    "test": "./node_modules/exam/exam.js",
+    "cover": "./node_modules/exam/exam-cover.js",
+    "report": "open coverage/lcov-report/index.html",
+    "coveralls": "./node_modules/exam/exam-coveralls.js"
+  },
+  "repository": "https://github.com/lighterio/lighter-stringify.git",
+  "bugs": "https://github.com/lighterio/lighter-stringify/issues",
+  "homepage": "https://github.com/lighterio/lighter-stringify",
+  "author": "Sam Eubank <sameubank@gmail.com>",
+  "contributors": [
+    "Sam Eubank <sameubank@gmail.com>"
+  ],
+  "license": "MIT"
+}
