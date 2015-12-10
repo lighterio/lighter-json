@@ -1,33 +1,50 @@
 {
-  "name": "lighter-stringify",
-  "version": "0.0.1",
-  "description": "A lightweight JavaScript circular-safe JSON stringifier.",
+  "name": "lighter-json",
+  "version": "1.0.0",
+  "description": "A lightweight JSON utility library.",
   "dependencies": {},
   "devDependencies": {
-    "exam": ">=0.3.5"
+    "exam": ">=1.3.0 <2"
   },
+  "bundledDependencies": [],
   "keywords": [
+    "json",
+    "circular",
+    "safe",
+    "stringify",
+    "scriptify",
+    "javascript",
+    "object",
+    "notation",
+    "parse",
+    "douglas",
+    "crockford",
+    "utility",
     "lighter",
     "fast",
     "lightweight",
-    "minimal"
+    "minimal",
+    "benchmark",
+    "speed",
+    "ops"
   ],
-  "main": "lighter-stringify.js",
+  "main": "lighter-json.js",
   "engines": {
-    "node": ">=0.2.6"
+    "node": ">=0.8.28"
   },
   "scripts": {
     "test": "./node_modules/exam/exam.js",
     "cover": "./node_modules/exam/exam-cover.js",
     "report": "open coverage/lcov-report/index.html",
-    "coveralls": "./node_modules/exam/exam-coveralls.js"
+    "coveralls": "./node_modules/exam/exam-coveralls.js",
+    "bench": "./node_modules/exam/exam.js test/bench"
   },
-  "repository": "https://github.com/lighterio/lighter-stringify.git",
-  "bugs": "https://github.com/lighterio/lighter-stringify/issues",
-  "homepage": "https://github.com/lighterio/lighter-stringify",
+  "repository": "https://github.com/lighterio/lighter-json.git",
+  "bugs": "https://github.com/lighterio/lighter-json/issues",
+  "homepage": "https://github.com/lighterio/lighter-json",
   "author": "Sam Eubank <sameubank@gmail.com>",
   "contributors": [
     "Sam Eubank <sameubank@gmail.com>"
   ],
-  "license": "MIT"
+  "license": "ISC"
 }

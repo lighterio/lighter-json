@@ -1,5 +1,5 @@
 var fs = require('fs')
-var stringify = require(__dirname + '/lighter-stringify')
+var stringify = require('../lighter-json')
 
 describe('Benchmarks', function () {
 
