@@ -16,13 +16,21 @@ npm install --save lighter-json
 
 ## API
 
+### JSON.evaluate(js)
+Evaluate and return a value from a JavaScript string representation. This
+supports non-strict JSON, so a value (or a deep property) can be a Date, a
+Function, an Error or a RegExp.
+
+### JSON.globalize()
+Decorate the global JSON object with the `lighter-json` package's methods.
+
+### JSON.scriptify(value[, stack])
+Convert an object to non-strict JSON, complete with JS code for re-constructing
+Date, Error, Function and RegExp values.
+
 ### JSON.stringify(value[, replacer[, space]])
 Perform a JSON stringify operation on a value, using automatic cycle detection
 if a replacer function is not provided.
-
-### JSON.decorate([json])
-Decorate an object (by default the global JSON object), with the `lighter-json`
-package's methods.
 
 ## More on lighter-json...
 * [Contributing](//github.com/lighterio/lighter-json/blob/master/CONTRIBUTING.md)
