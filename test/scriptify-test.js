@@ -1,12 +1,14 @@
 'use strict'
 /* global describe it */
-var JSON = require('../lighter-json')
+var j = require('../lighter-json')
+var s = j.scriptify
+var e = j.evaluate
 var is = global.is || require('exam-is')
 
-describe('JSON.scriptify', function () {
+describe('s', function () {
   it('has a default maximum depth of 5', function () {
-    var a = JSON.scriptify([[[[[[]]]]]])
-    var o = JSON.scriptify([[[[[{}]]]]])
+    var a = s([[[[[[]]]]]])
+    var o = s([[[[[{}]]]]])
     is(a, '[[[[["[Array]"]]]]]')
     is(o, '[[[[["[Object]"]]]]]')
   })
@@ -16,8 +18,8 @@ describe('JSON.scriptify', function () {
     Thing.prototype.hi = 'Hi!'
     var thing = new Thing()
     thing.ok = true
-    var p = JSON.scriptify(thing)
-    var o = JSON.scriptify(thing, {ownOnly: true})
+    var p = s(thing)
+    var o = s(thing, {ownOnly: true})
     is(p, '{ok:true,hi:"Hi!"}')
     is(o, '{ok:true}')
   })
@@ -57,8 +59,7 @@ describe('JSON.scriptify', function () {
     })
 
     it('works for functions', function () {
-      var s = JSON.scriptify(function () {})
-      is(s, 'function () {}')
+      is(s(function () {}), 'function () {}')
     })
 
     it('works for objects', function () {
@@ -99,19 +100,19 @@ describe('JSON.scriptify', function () {
     it('for one level with an object', function () {
       var o = {}
       o.o = o
-      is(JSON.scriptify(o), '{o:{"^":1}}')
+      is(s(o), '{o:{"^":1}}')
     })
 
     it('for 2 levels with an array', function () {
       var o = {}
       o.a = [o]
-      is(JSON.scriptify(o), '{a:[{"^":2}]}')
+      is(s(o), '{a:[{"^":2}]}')
     })
   })
 })
 
 function equate (value, options) {
-  var scriptified = JSON.scriptify(value, options)
-  var evaluated = JSON.evaluate(scriptified)
+  var scriptified = s(value, options)
+  var evaluated = e(scriptified)
   is.same(evaluated, value)
 }
