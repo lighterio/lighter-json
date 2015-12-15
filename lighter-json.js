@@ -312,7 +312,7 @@ var colorize = self.colorize = function colorize (value, options) {
       if (stack.length > maxDepth) {
         value = colorize.cyan + (isArray ? '[Array]' : '[Object]') + colorize.base
       } else {
-        options._indent += space
+        options._indent = indent + space
         options.maxWidth -= space.length
         if (isArray) {
           value.forEach(function (prop) {
