@@ -14,23 +14,59 @@ From your project directory, install and save as a dependency:
 npm install --save lighter-json
 ```
 
-## API
+Then use `lighter-json` in place of the global `JSON` object for circular
+reference safety and more.
 
-### JSON.evaluate(js)
+```
+var JSON = require('lighter-json')
+
+// Create a circular reference, if you like.
+var object = {}
+object.reference = object
+
+// It's OK, you're safe.
+var json = JSON.stringify(object)
+console.log(json)
+
+//> {"reference":"[Circular 1]"}
+```
+
+## API
+The `lighter-json` package exports an object with several methods for dealing
+with JSON and non-strict JSON. It also populates same-name methods onto the
+global JSON object, apart from its `stringify` method, which is populated as
+`JSON.safeStringify`.
+
+### lighterJson.stringify(value[, replacer[, space]])
+Perform a JSON stringify operation on a value, using automatic cycle detection
+if a replacer function is not provided.
+
+### lighterJson.parse(json)
+Parse a JSON string (using the builtin `JSON.parse`).
+
+### lighterJson.scriptify(value)
+Represent a value as non-strict JSON, complete with JS code for
+re-constructing Date, Error, Function and RegExp values.
+
+### lighterJson.evaluate(js)
 Evaluate and return a value from a JavaScript string representation. This
 supports non-strict JSON, so a value (or a deep property) can be a Date, a
 Function, an Error or a RegExp.
 
-### JSON.globalize()
-Decorate the global JSON object with the `lighter-json` package's methods.
+### lighterJson.read(readableStream)
+Listen to a readable stream that's not in object mode, and interpret its
+lines as JavaScript values (using `lighterJson.evaluate`).
 
-### JSON.scriptify(value[, stack])
-Convert an object to non-strict JSON, complete with JS code for re-constructing
-Date, Error, Function and RegExp values.
+### lighterJson.unread(readableStream)
+Stop listening for values on a readable stream.
 
-### JSON.stringify(value[, replacer[, space]])
-Perform a JSON stringify operation on a value, using automatic cycle detection
-if a replacer function is not provided.
+### lighterJson.write(readableStream, value)
+Write a value to a stream as a non-strict JSON line (using `lighterJson.scriptify`).
+
+### lighterJson.colorize(value)
+Evaluate and return a value from a JavaScript string representation. This
+supports non-strict JSON, so a value (or a deep property) can be a Date, a
+Function, an Error or a RegExp.
 
 ## More on lighter-json...
 * [Contributing](//github.com/lighterio/lighter-json/blob/master/CONTRIBUTING.md)

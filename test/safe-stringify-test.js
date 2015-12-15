@@ -1,21 +1,19 @@
 'use strict'
-/* global describe it before after */
+/* global describe it */
 var JSON = require('../lighter-json')
-var is = global.is || require('exam/lib/is')
+var is = global.is || require('exam-is')
 
-var nativeStringify = JSON.stringify
-
-describe('JSON.stringify', function () {
-  before(function () {
-    require('../common/json/stringify')
+describe('JSON.safeStringify', function () {
+  it('uses a replacer function if given', function () {
+    var o = {a: 1, b: 2}
+    var n = 0
+    var a = JSON.stringify(o, function () { n++ })
+    var b = global.JSON.stringify(o, function () {})
+    is(a, b)
+    is(n, 1)
   })
 
-  after(function () {
-    delete JSON.nativeStringify
-    JSON.stringify = nativeStringify
-  })
-
-  describe('matches the native method', function () {
+  describe('matches JSON.stringify', function () {
     it('for undefined', function () {
       match(undefined)
     })
@@ -64,6 +62,18 @@ describe('JSON.stringify', function () {
     it('for arrays', function () {
       match([1, 2, 3])
     })
+
+    it('for arrays with undefined values', function () {
+      match([undefined])
+    })
+
+    it('for objects with prototypes', function () {
+      var Thing = function () {}
+      Thing.prototype.hi = 'Hi!'
+      var thing = new Thing()
+      thing.ok = true
+      match(thing)
+    })
   })
 
   describe('is circular-safe', function () {
@@ -79,10 +89,20 @@ describe('JSON.stringify', function () {
       is(JSON.stringify(o), '{"a":["[Circular 2]"]}')
     })
   })
+
+  describe('supports spacing', function () {
+    it('in arrays', function () {
+      is(JSON.stringify([1], null, '\t'), '[\n\t1\n]')
+    })
+
+    it('in objects', function () {
+      is(JSON.stringify({a: 1}, null, ' '), '{\n "a": 1\n}')
+    })
+  })
 })
 
 function match (value) {
-  var expected = JSON.nativeStringify(value)
+  var expected = global.JSON.stringify(value)
   var actual = JSON.stringify(value)
   is(actual, expected)
 }
