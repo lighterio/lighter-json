@@ -5,6 +5,7 @@ var is = global.is || require('exam-is')
 var Readable = require('stream').Readable
 var stream = new Readable()
 stream.resume = function () {}
+stream.read = function () {}
 
 describe('JSON.read', function () {
   it('causes a stream to emit objects', function (done) {
