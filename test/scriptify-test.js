@@ -34,6 +34,7 @@ describe('scriptify', function () {
     it('works for booleans', function () {
       equate(true)
       equate(false)
+      equate(new Boolean()) // eslint-disable-line
     })
 
     it('works for numbers', function () {
@@ -45,6 +46,7 @@ describe('scriptify', function () {
       equate(1e99)
       equate(Infinity)
       equate(NaN)
+      equate(new Number()) // eslint-disable-line
     })
 
     it('works for strings', function () {
@@ -54,6 +56,8 @@ describe('scriptify', function () {
       equate('hi\r\n')
       equate('hi\\you')
       equate('"hi\\you\\"')
+      equate('\0\b\n\f\r\t')
+      equate(new String()) // eslint-disable-line
     })
 
     it('works for functions', function () {

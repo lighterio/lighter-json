@@ -36,10 +36,11 @@ self.stringify = function stringify (value, replacer, space) {
  * @return {String}                Stringified JSON.
  */
 var safeStringify = function safeStringify (value, stack, space) {
-  if (value === null) {
-    return 'null'
-  }
-  if (typeof value !== 'object') {
+  if (typeof value !== 'object' ||
+    value === null ||
+    value instanceof String ||
+    value instanceof Number ||
+    value instanceof Boolean) {
     return nativeStringify(value)
   }
   var length = stack.length
@@ -102,8 +103,11 @@ var scriptify = self.scriptify = function (value, options) {
   if (type === 'function') {
     return value.toString()
   }
-  if (type === 'string') {
+  if (type === 'string' || value instanceof String) {
     return nativeStringify(value)
+  }
+  if (value instanceof Boolean || value instanceof Number) {
+    return '' + value
   }
   if (type === 'object' && value) {
     if (value instanceof Date) {
@@ -276,6 +280,11 @@ var colorize = self.colorize = function colorize (value, options) {
         .replace(/([,\)])/g, '$1 ')
         .replace(/\s+/g, ' ')
     }
+  } else if (type === 'string' ||
+    value instanceof String ||
+    value instanceof Number ||
+    value instanceof Boolean) {
+    value = nativeStringify(value)
   } else if ((type === 'object') && value) {
     if (value instanceof Date) {
       value = '[Date: ' + value.toUTCString() + ']'
@@ -360,8 +369,6 @@ var colorize = self.colorize = function colorize (value, options) {
       }
       stack.pop()
     }
-  } else if (type === 'string') {
-    value = nativeStringify(value)
   }
   return color + value + colorize.base
 }

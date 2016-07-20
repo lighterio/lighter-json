@@ -25,6 +25,7 @@ describe('JSON.safeStringify', function () {
     it('for booleans', function () {
       match(true)
       match(false)
+      match(new Boolean()) // eslint-disable-line
     })
 
     it('for numbers', function () {
@@ -36,6 +37,7 @@ describe('JSON.safeStringify', function () {
       match(1e99)
       match(Infinity)
       match(NaN)
+      match(new Number()) // eslint-disable-line
     })
 
     it('for strings', function () {
@@ -45,6 +47,8 @@ describe('JSON.safeStringify', function () {
       match('hi\r\n')
       match('hi\\you')
       match('"hi\\you\\"')
+      match('\0\b\n\f\r\t')
+      match(new String()) // eslint-disable-line
     })
 
     it('for functions', function () {
