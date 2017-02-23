@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/npm/v/lighter-json.svg)](//www.npmjs.com/package/lighter-json)
 [![Downloads](https://img.shields.io/npm/dm/lighter-json.svg)](//www.npmjs.com/package/lighter-json)
 [![Build](https://img.shields.io/travis/lighterio/lighter-json.svg)](//travis-ci.org/lighterio/lighter-json)
-[![Coverage](https://img.shields.io/coveralls/lighterio/lighter-json/master.svg)](//coveralls.io/r/lighterio/lighter-json)
+[![Coverage](https://img.shields.io/codecov/c/github/lighterio/lighter-json/master.svg)](//codecov.io/gh/lighterio/lighter-json)
 [![Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](//www.npmjs.com/package/standard)
 
 The `lighter-json` module is a lightweight JavaScript Object Notation utility.
