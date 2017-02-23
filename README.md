@@ -53,15 +53,18 @@ Evaluate and return a value from a JavaScript string representation. This
 supports non-strict JSON, so a value (or a deep property) can be a Date, a
 Function, an Error or a RegExp.
 
-### lighterJson.read(readableStream)
+### lighterJson.reader(readableStream)
 Listen to a readable stream that's not in object mode, and interpret its
 lines as JavaScript values (using `lighterJson.evaluate`).
 
-### lighterJson.unread(readableStream)
+### lighterJson.unreader(readableStream)
 Stop listening for values on a readable stream.
 
-### lighterJson.write(readableStream, value)
-Write a value to a stream as a non-strict JSON line (using `lighterJson.scriptify`).
+### lighterJson.writer(writableStream)
+Replace the stream's write method with one that accepts objects and writes non-strict JSON.
+
+### lighterJson.unwriter(writableStream)
+Puts a writable stream's write method back.
 
 ### lighterJson.colorize(value)
 Evaluate and return a value from a JavaScript string representation. This

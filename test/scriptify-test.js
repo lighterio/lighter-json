@@ -1,7 +1,7 @@
 'use strict'
 /* global describe it */
 var JSON = require('../lighter-json')
-var is = global.is || require('exam-is')
+var is = global.is || require('exam/lib/is')
 
 describe('scriptify', function () {
   it('has a default maximum depth of 5', function () {

@@ -196,7 +196,7 @@ var evaluate = self.evaluate = (function () {
  * @param  {Object} stream  A readable stream.
  * @return {Object}         The stream.
  */
-self.read = function read (stream) {
+self.reader = function reader (stream) {
   stream._jsonData = ''
   stream.on('data', onData)
   return stream
@@ -208,7 +208,7 @@ self.read = function read (stream) {
  * @param  {Object} stream  A readable stream.
  * @return {Object}         The stream.
  */
-self.unread = function unread (stream) {
+self.unreader = function unreader (stream) {
   stream.removeListener('data', onData)
   delete stream._jsonData
   return stream
@@ -239,12 +239,27 @@ function onData (chunk) {
 /**
  * Write a value to a stream as a non-strict JSON line.
  *
- * @param  {Object} stream  A readable stream.
- * @return {Object}         The stream.
+ * @param  {Object}   stream  A readable stream.
+ * @param  {Function} fn      An optional errback confirming the write.
+ * @return {Object}           The stream.
  */
-self.write = function write (stream, value) {
-  var line = scriptify(value) + '\n'
-  stream.write(line)
+self.writer = function writer (stream, fn) {
+  var write = stream._writer = stream.write
+  stream.write = function (object) {
+    var js = scriptify(object)
+    return write.call(stream, js + '\n', 'utf-8', fn)
+  }
+  return stream
+}
+
+/**
+ * Write a value to a stream as a non-strict JSON line.
+ *
+ * @param  {Object}   stream  A readable stream.
+ * @return {Object}           The stream.
+ */
+self.unwriter = function unwriter (stream) {
+  stream.write = stream._writer
   return stream
 }
 
@@ -275,9 +290,9 @@ var colorize = self.colorize = function colorize (value, options) {
     value = value.toString().replace(/\s+/g, ' ')
     if (value.length > maxWidth) {
       value = value
-        .replace(/^([^\{]+?)\{.*\}$/, '$1 {...}')
+        .replace(/^([^{]+?)\{.*\}$/, '$1 {...}')
         .replace(/(\w)\(/, '$1 (')
-        .replace(/([,\)])/g, '$1 ')
+        .replace(/([,)])/g, '$1 ')
         .replace(/\s+/g, ' ')
     }
   } else if (type === 'string' ||
@@ -401,5 +416,8 @@ JSON.safeStringify = self.stringify
 JSON.scriptify = self.scriptify
 JSON.colorize = self.colorize
 JSON.evaluate = self.evaluate
-JSON.read = self.read
+JSON.reader = self.reader
+JSON.unreader = self.unreader
+JSON.writer = self.writer
+JSON.unwriter = self.unwriter
 self.parse = JSON.parse

@@ -1,6 +1,6 @@
 {
   "name": "lighter-json",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "A lightweight JSON utility library.",
   "dependencies": {},
   "devDependencies": {
@@ -33,7 +33,9 @@
     "minimal",
     "benchmark",
     "speed",
-    "ops"
+    "ops",
+    "readable",
+    "writable"
   ],
   "main": "lighter-json.js",
   "engines": {

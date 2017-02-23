@@ -1,5 +1,8 @@
 # lighter-json Change Log
 
+## v2.0.0 - 2017-02-22
+* `major` Changing "read" and "write" to "reader" and "writer".
+
 ## v1.0.2 - 2016-07-20
 * `patch` Treating constructor-created equivalents as primitives.
 

@@ -1,7 +1,7 @@
 'use strict'
 /* global describe it */
 var JSON = require('../lighter-json')
-var is = global.is || require('exam-is')
+var is = global.is || require('exam/lib/is')
 var c = JSON.colorize
 
 describe('JSON.colorize', function () {
